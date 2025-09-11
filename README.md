@@ -1,3 +1,3 @@
-*** MTEC340 Repository
+**MTEC340 Repository
 
 This is my unity class repo.
