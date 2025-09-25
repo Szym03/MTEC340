@@ -1,23 +1,37 @@
+using System;
 using UnityEngine;
 
-public class Paddle : MonoBehaviour
+public class PaddleBehavior : MonoBehaviour
 {
-    public float speed = 15f;        
-    public float boundary = 8f;      
+    [Range(1.0f, 10.0f)]
+    public float Speed = 5.0f;
+
+    [SerializeField] private KeyCode _rightDirection;
+    [SerializeField] private KeyCode _leftDirection;
+
+    private float _direction;
+
+    private Rigidbody2D _rb;
+
+    private void Start()
+    {
+        _rb = GetComponent<Rigidbody2D>();
+    }
+
+    void FixedUpdate()
+    {
+        _rb.linearVelocityX = _direction * Speed;
+    }
 
     void Update()
     {
-        
-        float move = Input.GetAxis("Horizontal");  
+        _direction = 0.0f;
 
-        
-        Vector3 pos = transform.position;
-        pos.x += move * speed * Time.deltaTime;
+        if (Input.GetKey(_rightDirection))
+            _direction += 1.0f;
 
-       
-        pos.x = Mathf.Clamp(pos.x, -boundary, boundary);
-
-        transform.position = pos;
+        if (Input.GetKey(_leftDirection))
+            _direction -= 1.0f;
     }
 }
 
