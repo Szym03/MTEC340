@@ -7,6 +7,7 @@ public class Brick : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Ball"))
         {
+            Manager.Instance.Score += 1;
             Destroy(gameObject);
         }
     }
