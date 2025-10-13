@@ -9,10 +9,15 @@ public class BallBehavior : MonoBehaviour
     
     private Rigidbody2D _rb;
     
-    
+    private AudioSource _source;
+    [SerializeField] AudioClip _wallHit;
+    [SerializeField] AudioClip _paddleHit;
+    [SerializeField] AudioClip _brickHit;
+
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _source = GetComponent<AudioSource>();
         
         Vector2 direction = new Vector2(
             GetNonZeroRandomFloat(),
@@ -33,6 +38,17 @@ public class BallBehavior : MonoBehaviour
 
                 _rb.linearVelocity = _rb.linearVelocity.magnitude * direction.normalized;
             }
+
+            _source.clip = _paddleHit;
+            _source.Play();
+        }else if (other.gameObject.CompareTag("Wall"))
+        {
+            _source.clip = _wallHit;
+            _source.Play();
+        }else if (other.gameObject.CompareTag("Brick"))
+        {
+            _source.clip = _brickHit;
+            _source.Play();
         }
     }
 
